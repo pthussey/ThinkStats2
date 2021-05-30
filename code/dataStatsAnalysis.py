@@ -574,7 +574,7 @@ def ResampleInterSlope(x, y, iters=100):
     
     fys_seq = []
     for inter, slope in zip(inters, slopes):
-        fxs, fys = FitLine(x, inter, slope)
+        _, fys = FitLine(x, inter, slope)
         fys_seq.append(fys)
 
     return np.array(inters), np.array(slopes), fys_seq
@@ -588,8 +588,8 @@ def ResampleDiffMeans_H0(a, b, iters=1000, onesided=False):
     Args:
         a (array-like): Input data set 1
         b (array-like): Input data set 2
-        iters (int, optional): The number of simulations to run (Defaults to 1000)
-        onesided (bool): If set to True a onesided test is run, not using absolute value of difference (defaults to False) 
+        iters (int): The number of simulations to run (Defaults to 1000)
+        onesided (bool): If set to True a onesided test, that does not use absolute value of difference, is run (Defaults to False) 
 
     Returns:
         test_diff: Original actual difference in means value
@@ -651,7 +651,7 @@ def ResampleDiffMeans_Ha(a, b, iters=1000):
     
     diff_mean_results = []
     
-    test_diff = a.mean() - b.mean() # The test stat if onesided
+    test_diff = a.mean() - b.mean()
     
     for _ in range(iters):
         a_resample = a.sample(n=len(a), replace=True)
@@ -670,8 +670,8 @@ def ResampleCorrelation(x, y, iters=1000, onesided=False):
     Args:
         x (array-like): Input variable 1
         y (array-like): Input variable 2
-        iters (int, optional): [description]. Defaults to 1000.
-        onesided (bool, optional): [description]. Defaults to False.
+        iters (int): The number of simulations to run (Defaults to 1000)
+        onesided (bool): If set to True a onesided test, that does not use absolute value of difference, is run (Defaults to False)
 
     Returns:
         test_r: Original actual correlation value
